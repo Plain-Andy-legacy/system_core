@@ -67,6 +67,8 @@ int usage(void)
             "       [ --pagesize <pagesize> ]\n"
             "       [ --ramdisk_offset <address> ]\n"
             "       [ --dt <filename> ]\n"
+            "       [ --ramdisk_offset <address> ]\n"
+            "       [ --tags_offset <address> ]\n"
             "       -o|--output <filename>\n"
             );
     return 1;
@@ -157,9 +159,10 @@ int main(int argc, char **argv)
             board = val;
         } else if(!strcmp(arg,"--pagesize")) {
             pagesize = strtoul(val, 0, 10);
-            if ((pagesize != 2048) && (pagesize != 4096) && (pagesize != 8192)
-                    && (pagesize != 16384) && (pagesize != 32768)
-                    && (pagesize != 65536) && (pagesize != 131072)) {
+            if ((pagesize != 2048) && (pagesize != 4096)
+                && (pagesize != 8192) && (pagesize != 16384)
+                && (pagesize != 32768) && (pagesize != 65536)
+                && (pagesize != 131072)) {
                 fprintf(stderr,"error: unsupported page size %d\n", pagesize);
                 return -1;
             }

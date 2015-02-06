@@ -110,6 +110,16 @@ int android_reboot(int cmd, int flags UNUSED, char *arg)
     int ret = 0;
     int reason = -1;
 
+#ifdef RECOVERY_PRE_COMMAND
+    if (cmd == (int) ANDROID_RB_RESTART2) {
+        if (arg && strlen(arg) > 0) {
+            char cmd[PATH_MAX];
+            sprintf(cmd, RECOVERY_PRE_COMMAND " %s", arg);
+            system(cmd);
+        }
+    }
+#endif
+
     sync();
     remount_ro();
 
